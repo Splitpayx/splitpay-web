@@ -41,7 +41,8 @@ export default function WalletPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+    <div className="w-full flex justify-center py-8 px-4 sm:px-6">
+      <div className="w-full max-w-4xl space-y-8">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
         <div>
           <h1 className="text-2xl font-bold text-white tracking-tight">Connected Wallet</h1>
@@ -178,6 +179,7 @@ export default function WalletPage() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

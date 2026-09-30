@@ -68,7 +68,8 @@ export default function PaymentDetailsPage({ params }: { params: Promise<{ id: s
   const isSettled = payment.status === PaymentStatus.Settled;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+    <div className="w-full flex justify-center py-8 px-4 sm:px-6">
+      <div className="w-full max-w-4xl space-y-8">
       <Link
         href="/payments"
         className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors"
@@ -213,6 +214,7 @@ export default function PaymentDetailsPage({ params }: { params: Promise<{ id: s
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }

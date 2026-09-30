@@ -141,31 +141,36 @@ function CreatePaymentContent() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-      <Link
-        href="/payments"
-        className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors"
-      >
-        <ArrowLeft className="w-4 h-4" /> Back to Payments
-      </Link>
+    <div className="w-full flex justify-center py-10 px-4 sm:px-6">
+      <div className="w-full max-w-2xl space-y-8">
+        <Link
+          href="/payments"
+          className="inline-flex items-center gap-2 text-xs font-medium text-zinc-400 hover:text-white transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to Payments
+        </Link>
 
-      <div className="space-y-1 border-b border-white/10 pb-4">
-        <h1 className="text-2xl font-bold text-white tracking-tight">Create & Settle Payment</h1>
-        <p className="text-sm text-white/50">
-          Deposit funds to a pool for instant, atomic distribution via Soroban smart contracts.
-        </p>
-      </div>
-
-      {clientError && (
-        <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 shrink-0" />
-          <span>{clientError}</span>
+        <div className="space-y-2 border-b border-white/10 pb-5">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-blue-500/20 bg-blue-500/10 text-blue-400 text-xs font-medium">
+            <CreditCard className="w-3.5 h-3.5" />
+            Atomic Settlement Engine
+          </div>
+          <h1 className="text-3xl font-bold text-white tracking-tight">Create & Settle Payment</h1>
+          <p className="text-sm text-zinc-400">
+            Deposit funds to a pool for instant, atomic distribution via Soroban smart contracts.
+          </p>
         </div>
-      )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="bg-[#111111] p-6 rounded-xl border border-white/10 space-y-4">
-          <h2 className="font-semibold text-white text-sm">Payment Details</h2>
+        {clientError && (
+          <div className="p-4 rounded-xl bg-rose-950/40 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-3 shadow-lg">
+            <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+            <span className="font-medium">{clientError}</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="bg-[#111319] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl space-y-5">
+            <h2 className="font-semibold text-white text-base">Payment Details</h2>
 
           <div className="space-y-1.5">
             <label className="text-xs text-white/60">Target Pool</label>
@@ -218,27 +223,27 @@ function CreatePaymentContent() {
         </div>
 
         {/* Contract Distribution Preview */}
-        <div className="bg-[#111111] p-6 rounded-xl border border-white/10 space-y-4">
+        <div className="bg-[#111319] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl space-y-5">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="font-semibold text-white text-sm">Deterministic Split Preview</h2>
-              <p className="text-xs text-white/50">Calculated directly according to contract rules.</p>
+              <h2 className="font-semibold text-white text-base">Deterministic Split Preview</h2>
+              <p className="text-xs text-zinc-400">Calculated directly according to contract rules.</p>
             </div>
-            <div className="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-xs text-emerald-400 font-mono">
               <ShieldCheck className="w-3.5 h-3.5" />
               100% Invariant
             </div>
           </div>
 
           {poolMembers.length === 0 ? (
-            <p className="text-xs text-white/40 py-2">No members configured for this pool.</p>
+            <p className="text-xs text-zinc-500 py-3">No members configured for this pool.</p>
           ) : (
-            <div className="divide-y divide-white/5 rounded-lg border border-white/5 bg-black/30 overflow-hidden">
+            <div className="divide-y divide-white/5 rounded-xl border border-white/10 bg-[#090A0F] overflow-hidden">
               {previewAllocations.map((alloc, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 text-xs">
+                <div key={idx} className="flex items-center justify-between p-3.5 text-xs">
                   <div className="space-y-0.5">
-                    <span className="font-mono text-white/90">{formatAddress(alloc.address, 8, 8)}</span>
-                    <span className="block text-[11px] text-white/40">{formatBps(alloc.shareBps)} share</span>
+                    <span className="font-mono text-zinc-200">{formatAddress(alloc.address, 8, 8)}</span>
+                    <span className="block text-[11px] text-zinc-500">{formatBps(alloc.shareBps)} share</span>
                   </div>
                   <div className="text-right font-mono font-semibold text-emerald-400">
                     {formatUnits(alloc.amount)} units
@@ -252,13 +257,14 @@ function CreatePaymentContent() {
         <button
           type="submit"
           disabled={!address || !selectedPool || txState.step !== 'idle'}
-          className="w-full py-3 px-4 bg-white text-black font-semibold text-sm rounded-lg hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+          className="w-full py-3.5 px-6 bg-white text-black font-semibold text-sm rounded-xl hover:bg-zinc-200 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-[0.99]"
         >
           {!address ? 'Connect Wallet to Pay' : 'Sign & Settle Payment on Soroban'}
         </button>
       </form>
 
       <TransactionStatusModal state={txState} onClose={resetTx} title="Settling Payment on Stellar" />
+      </div>
     </div>
   );
 }

@@ -89,13 +89,14 @@ export default function PoolDetailsPage({ params }: { params: Promise<{ id: stri
   const totalBps = members.reduce((sum, m) => sum + m.shareBps, 0);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-      <Link
-        href="/pools"
-        className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors"
-      >
-        <ArrowLeft className="w-4 h-4" /> Back to Pools
-      </Link>
+    <div className="w-full flex justify-center py-10 px-4 sm:px-6">
+      <div className="w-full max-w-4xl space-y-8">
+        <Link
+          href="/pools"
+          className="inline-flex items-center gap-2 text-xs font-medium text-zinc-400 hover:text-white transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to Pools
+        </Link>
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
@@ -271,6 +272,7 @@ export default function PoolDetailsPage({ params }: { params: Promise<{ id: stri
             ))}
           </div>
         )}
+      </div>
       </div>
     </div>
   );

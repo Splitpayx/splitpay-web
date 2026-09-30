@@ -54,9 +54,10 @@ export default function DashboardPage() {
   }, [address]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-      {/* Header with Quick Actions */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+    <div className="w-full flex justify-center py-10 px-4 sm:px-6">
+      <div className="w-full max-w-6xl space-y-8">
+        {/* Header with Quick Actions */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
         <div>
           <h1 className="text-2xl font-bold text-white tracking-tight">Financial Dashboard</h1>
           <p className="text-sm text-white/50">
@@ -249,6 +250,7 @@ export default function DashboardPage() {
             ))}
           </div>
         )}
+      </div>
       </div>
     </div>
   );

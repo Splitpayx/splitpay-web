@@ -21,22 +21,23 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-      <div className="space-y-1 border-b border-white/10 pb-4">
-        <h1 className="text-2xl font-bold text-white tracking-tight">Protocol Settings</h1>
-        <p className="text-sm text-white/50">Configure Stellar network and SplitPay smart contract targets.</p>
-      </div>
-
-      {saved && (
-        <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4" />
-          <span>Configuration saved for current session.</span>
+    <div className="w-full flex justify-center py-10 px-4 sm:px-6">
+      <div className="w-full max-w-2xl space-y-8">
+        <div className="space-y-1 border-b border-white/10 pb-4">
+          <h1 className="text-3xl font-bold text-white tracking-tight">Protocol Settings</h1>
+          <p className="text-sm text-zinc-400">Configure Stellar network and SplitPay smart contract targets.</p>
         </div>
-      )}
 
-      <form onSubmit={handleSave} className="bg-[#111111] p-6 rounded-xl border border-white/10 space-y-4">
-        <div className="space-y-1.5">
-          <label className="text-xs text-white/60">SplitPay Contract ID</label>
+        {saved && (
+          <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4" />
+            <span>Configuration saved for current session.</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSave} className="bg-[#111319] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl space-y-5">
+          <div className="space-y-2">
+            <label className="text-xs font-medium text-zinc-300">SplitPay Contract ID</label>
           <input
             type="text"
             placeholder="C... contract address"
@@ -77,6 +78,7 @@ export default function SettingsPage() {
           <Save className="w-3.5 h-3.5" /> Save Configuration
         </button>
       </form>
+      </div>
     </div>
   );
 }

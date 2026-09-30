@@ -143,18 +143,19 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-      <Link
-        href={`/pools/${poolId}`}
-        className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors"
-      >
-        <ArrowLeft className="w-4 h-4" /> Back to Pool Details
-      </Link>
+    <div className="w-full flex justify-center py-10 px-4 sm:px-6">
+      <div className="w-full max-w-2xl space-y-8">
+        <Link
+          href={`/pools/${poolId}`}
+          className="inline-flex items-center gap-2 text-xs font-medium text-zinc-400 hover:text-white transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to Pool Details
+        </Link>
 
-      <div className="space-y-1 border-b border-white/10 pb-4">
-        <h1 className="text-2xl font-bold text-white tracking-tight">Pool Settings</h1>
-        <p className="text-sm text-white/50">Manage operational status, members, and split shares.</p>
-      </div>
+        <div className="space-y-1 border-b border-white/10 pb-4">
+          <h1 className="text-3xl font-bold text-white tracking-tight">Pool Settings</h1>
+          <p className="text-sm text-zinc-400">Manage operational status, members, and split shares.</p>
+        </div>
 
       {!isOwner && (
         <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
@@ -300,6 +301,7 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
       )}
 
       <TransactionStatusModal state={txState} onClose={resetTx} title="Updating Pool Configuration" />
+      </div>
     </div>
   );
 }
