@@ -24,11 +24,8 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // New member form inputs
   const [newMemberAddr, setNewMemberAddr] = useState('');
   const [newMemberShare, setNewMemberShare] = useState('');
-
-  // Editing existing member shares
   const [editingShares, setEditingShares] = useState<Record<string, string>>({});
 
   const loadData = async () => {
@@ -54,7 +51,7 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
   }, [poolId]);
 
   if (loading) {
-    return <div className="max-w-2xl mx-auto py-16 text-center text-white/50 text-sm">Loading settings...</div>;
+    return <div className="max-w-2xl mx-auto py-16 text-center text-[#94A3B8] text-sm">Loading settings...</div>;
   }
 
   if (!pool) {
@@ -147,14 +144,14 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
       <div className="w-full max-w-2xl space-y-8">
         <Link
           href={`/pools/${poolId}`}
-          className="inline-flex items-center gap-2 text-xs font-medium text-zinc-400 hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-medium text-[#94A3B8] hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Pool Details
         </Link>
 
-        <div className="space-y-1 border-b border-white/10 pb-4">
+        <div className="space-y-1 border-b border-[#1E3358] pb-4">
           <h1 className="text-3xl font-bold text-white tracking-tight">Pool Settings</h1>
-          <p className="text-sm text-zinc-400">Manage operational status, members, and split shares.</p>
+          <p className="text-sm text-[#94A3B8]">Manage operational status, members, and split shares.</p>
         </div>
 
       {!isOwner && (
@@ -172,10 +169,10 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
       )}
 
       {/* Operational Status Toggle */}
-      <div className="bg-[#111111] p-5 rounded-xl border border-white/10 flex items-center justify-between">
+      <div className="bg-[#0F2340] p-5 rounded-xl border border-[#1E3358] flex items-center justify-between">
         <div>
           <h2 className="text-sm font-semibold text-white">Pool Operational Status</h2>
-          <p className="text-xs text-white/50">
+          <p className="text-xs text-[#94A3B8]">
             {pool.status === PoolStatus.Active
               ? 'Active: Accepting payments for settlement.'
               : 'Inactive: Payments to this pool will be rejected by the contract.'}
@@ -185,11 +182,11 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
           <button
             onClick={handleToggleStatus}
             disabled={txState.step !== 'idle'}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/15 text-xs font-medium rounded-lg text-white transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#0B1A33] hover:bg-[#1E3358] border border-[#1E3358] text-xs font-medium rounded-lg text-white transition-colors"
           >
             {pool.status === PoolStatus.Active ? (
               <>
-                <ToggleRight className="w-4 h-4 text-emerald-400" /> Deactivate
+                <ToggleRight className="w-4 h-4 text-[#14B8A6]" /> Deactivate
               </>
             ) : (
               <>
@@ -201,12 +198,12 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
       </div>
 
       {/* Existing Members Management */}
-      <div className="bg-[#111111] p-5 rounded-xl border border-white/10 space-y-4">
+      <div className="bg-[#0F2340] p-5 rounded-xl border border-[#1E3358] space-y-4">
         <h2 className="text-sm font-semibold text-white">Current Members ({members.length})</h2>
 
         <div className="space-y-3">
           {members.map((m, idx) => (
-            <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-lg bg-black/40 border border-white/5">
+            <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-lg bg-[#0B1A33] border border-[#1E3358]">
               <div className="font-mono text-xs text-white/80">{formatAddress(m.address, 10, 10)}</div>
 
               <div className="flex items-center gap-2">
@@ -224,9 +221,9 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
                       })
                     }
                     disabled={!isOwner}
-                    className="w-full px-2 py-1 text-xs font-mono bg-black/60 border border-white/10 rounded text-white focus:outline-hidden"
+                    className="w-full px-2 py-1 text-xs font-mono rounded text-white focus:outline-hidden"
                   />
-                  <span className="absolute right-2 top-1 text-[11px] text-white/40">%</span>
+                  <span className="absolute right-2 top-1 text-[11px] text-[#64748B]">%</span>
                 </div>
 
                 {isOwner && (
@@ -234,14 +231,14 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
                     <button
                       onClick={() => handleUpdateShare(m.address)}
                       title="Update Share on-chain"
-                      className="p-1.5 bg-white/10 hover:bg-white/20 rounded text-white transition-colors"
+                      className="p-1.5 bg-[#0B1A33] hover:bg-[#1E3358] border border-[#1E3358] rounded text-white transition-colors"
                     >
                       <Save className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => handleRemoveMember(m.address)}
                       title="Remove Member from pool"
-                      className="p-1.5 hover:bg-rose-500/20 text-white/40 hover:text-rose-400 rounded transition-colors"
+                      className="p-1.5 hover:bg-rose-500/20 text-[#94A3B8] hover:text-rose-400 rounded transition-colors"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -255,24 +252,24 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
 
       {/* Add New Member Section */}
       {isOwner && (
-        <form onSubmit={handleAddMember} className="bg-[#111111] p-5 rounded-xl border border-white/10 space-y-4">
+        <form onSubmit={handleAddMember} className="bg-[#0F2340] p-5 rounded-xl border border-[#1E3358] space-y-4">
           <h2 className="text-sm font-semibold text-white">Add New Member</h2>
 
           <div className="space-y-3">
             <div className="space-y-1">
-              <label className="text-xs text-white/60">Stellar Address</label>
+              <label className="text-xs text-[#94A3B8]">Stellar Address</label>
               <input
                 type="text"
                 placeholder="G... or C... Stellar Address"
                 value={newMemberAddr}
                 onChange={(e) => setNewMemberAddr(e.target.value)}
                 required
-                className="w-full px-3 py-2 text-xs font-mono bg-black/40 border border-white/10 rounded-lg text-white focus:outline-hidden"
+                className="w-full font-mono text-xs"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs text-white/60">Share Percentage</label>
+              <label className="text-xs text-[#94A3B8]">Share Percentage</label>
               <div className="w-32 relative">
                 <input
                   type="number"
@@ -283,16 +280,16 @@ export default function PoolSettingsPage({ params }: { params: Promise<{ id: str
                   value={newMemberShare}
                   onChange={(e) => setNewMemberShare(e.target.value)}
                   required
-                  className="w-full px-3 py-2 text-xs font-mono bg-black/40 border border-white/10 rounded-lg text-white focus:outline-hidden pr-6"
+                  className="w-full font-mono text-xs pr-6"
                 />
-                <span className="absolute right-2.5 top-2 text-xs text-white/40">%</span>
+                <span className="absolute right-2.5 top-2 text-xs text-[#64748B]">%</span>
               </div>
             </div>
 
             <button
               type="submit"
               disabled={txState.step !== 'idle'}
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-black font-semibold text-xs rounded-lg hover:bg-white/90 transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-[#0B1A33] font-semibold text-xs rounded-lg hover:bg-white/90 transition-colors"
             >
               <Plus className="w-3.5 h-3.5" /> Add Member on Soroban
             </button>

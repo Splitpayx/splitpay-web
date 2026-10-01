@@ -45,7 +45,6 @@ export default function CreatePoolPage() {
     setMembers(updated);
   };
 
-  // Basis point validation
   const parsedShares = members.map((m) => ({
     address: m.address,
     shareBps: parseBps(m.sharePercent),
@@ -78,17 +77,14 @@ export default function CreatePoolPage() {
       return;
     }
 
-    // Generate unique u64 pool ID (timestamp in millis)
     const poolId = Date.now().toString();
 
     try {
-      // Step 1: Create Pool on-chain
       await executeTx(
         () => splitPayClient.prepareCreatePool(address, poolId, address, assetAddress),
         (signedXdr) => splitPayClient.submitSignedTx(signedXdr)
       );
 
-      // Step 2: Add each member on-chain
       for (const m of parsedShares) {
         await executeTx(
           () => splitPayClient.prepareAddMember(address, poolId, m.address, m.shareBps),
@@ -96,7 +92,6 @@ export default function CreatePoolPage() {
         );
       }
 
-      // Save to client registry
       saveTrackedPool({
         id: poolId,
         name: poolName || `Pool #${poolId}`,
@@ -114,18 +109,18 @@ export default function CreatePoolPage() {
       <div className="w-full max-w-2xl space-y-8">
         <Link
           href="/pools"
-          className="inline-flex items-center gap-2 text-xs font-medium text-zinc-400 hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-medium text-[#94A3B8] hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Pools
         </Link>
 
-        <div className="space-y-2 border-b border-white/10 pb-5">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-medium">
+        <div className="space-y-2 border-b border-[#1E3358] pb-5">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-[#14B8A6]/30 bg-[#14B8A6]/10 text-[#14B8A6] text-xs font-medium">
             <Split className="w-3.5 h-3.5" />
             Soroban On-Chain Configuration
           </div>
           <h1 className="text-3xl font-bold text-white tracking-tight">Create Payment Pool</h1>
-          <p className="text-sm text-zinc-400">
+          <p className="text-sm text-[#94A3B8]">
             Configure collaborative distribution rules, asset targeting, and verified member shares.
           </p>
         </div>
@@ -139,12 +134,12 @@ export default function CreatePoolPage() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Card 1: Pool Metadata & Asset */}
-          <div className="bg-[#111319] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl space-y-5">
+          <div className="bg-[#0F2340] p-6 sm:p-7 rounded-2xl border border-[#1E3358] shadow-xl space-y-5">
             <h2 className="font-semibold text-white text-base">Pool Details</h2>
 
             <div className="space-y-2">
-              <label className="text-xs font-medium text-zinc-300">
-                Pool Name <span className="text-zinc-500 font-normal">(Application Metadata)</span>
+              <label className="text-xs font-medium text-[#94A3B8]">
+                Pool Name <span className="text-[#64748B] font-normal">(Application Metadata)</span>
               </label>
               <input
                 type="text"
@@ -157,8 +152,8 @@ export default function CreatePoolPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-medium text-zinc-300">
-                Asset Contract Address <span className="text-zinc-500 font-normal">(Stellar SAC)</span>
+              <label className="text-xs font-medium text-[#94A3B8]">
+                Asset Contract Address <span className="text-[#64748B] font-normal">(Stellar SAC)</span>
               </label>
               <input
                 type="text"
@@ -167,25 +162,25 @@ export default function CreatePoolPage() {
                 required
                 className="w-full font-mono text-xs"
               />
-              <p className="text-[11px] text-zinc-500">
+              <p className="text-[11px] text-[#64748B]">
                 Default: Stellar Testnet Native XLM Asset Contract address.
               </p>
             </div>
           </div>
 
           {/* Card 2: Members & Basis Point Shares */}
-          <div className="bg-[#111319] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl space-y-5">
+          <div className="bg-[#0F2340] p-6 sm:p-7 rounded-2xl border border-[#1E3358] shadow-xl space-y-5">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="font-semibold text-white text-base">Members & Splits</h2>
-                <p className="text-xs text-zinc-400">
+                <h2 className="font-semibold text-white text-base">Members &amp; Splits</h2>
+                <p className="text-xs text-[#94A3B8]">
                   Total split must equal exactly 100% (10,000 basis points).
                 </p>
               </div>
               <button
                 type="button"
                 onClick={addMemberRow}
-                className="inline-flex items-center gap-1.5 text-xs text-white bg-white/10 hover:bg-white/20 border border-white/10 px-3 py-1.5 rounded-lg transition-colors font-medium"
+                className="inline-flex items-center gap-1.5 text-xs text-white bg-[#0B1A33] hover:bg-[#1E3358] border border-[#1E3358] px-3 py-1.5 rounded-lg transition-colors font-medium"
               >
                 <Plus className="w-3.5 h-3.5" /> Add Member
               </button>
@@ -216,7 +211,7 @@ export default function CreatePoolPage() {
                       required
                       className="w-full font-mono text-xs pr-7 text-right"
                     />
-                    <span className="absolute right-3 top-2.5 text-xs font-semibold text-zinc-400 pointer-events-none">
+                    <span className="absolute right-3 top-2.5 text-xs font-semibold text-[#64748B] pointer-events-none">
                       %
                     </span>
                   </div>
@@ -225,7 +220,7 @@ export default function CreatePoolPage() {
                       type="button"
                       onClick={() => removeMemberRow(idx)}
                       title="Remove member"
-                      className="p-2.5 text-zinc-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
+                      className="p-2.5 text-[#94A3B8] hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -238,7 +233,7 @@ export default function CreatePoolPage() {
             <div
               className={`p-4 rounded-xl border text-xs flex items-center justify-between transition-colors shadow-inner ${
                 validation.valid
-                  ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300'
+                  ? 'bg-[#14B8A6]/10 border-[#14B8A6]/30 text-[#14B8A6]'
                   : 'bg-amber-950/40 border-amber-500/30 text-amber-300'
               }`}
             >
@@ -257,7 +252,7 @@ export default function CreatePoolPage() {
           <button
             type="submit"
             disabled={!address || !validation.valid || txState.step !== 'idle'}
-            className="w-full py-3.5 px-6 bg-white text-black font-semibold text-sm rounded-xl hover:bg-zinc-200 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-[0.99]"
+            className="w-full py-3.5 px-6 bg-white text-[#0B1A33] font-semibold text-sm rounded-xl hover:bg-white/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-[0.99]"
           >
             {!address ? 'Connect Wallet to Deploy Pool' : 'Deploy Pool to Soroban Contract'}
           </button>

@@ -19,7 +19,6 @@ export default function DashboardPage() {
   const loadData = async () => {
     setLoading(true);
     try {
-      // Load tracked pools
       const trackedPools = getTrackedPools();
       const poolPromises = trackedPools.map(async (tp) => {
         const onChain = await splitPayClient.getPool(tp.id);
@@ -31,7 +30,6 @@ export default function DashboardPage() {
       const resolvedPools = (await Promise.all(poolPromises)).filter(Boolean) as Pool[];
       setPools(resolvedPools);
 
-      // Load tracked payments
       const trackedPayments = getTrackedPayments();
       const paymentPromises = trackedPayments.map(async (tp) => {
         const onChain = await splitPayClient.getPayment(tp.id);
@@ -57,10 +55,10 @@ export default function DashboardPage() {
     <div className="w-full flex justify-center py-10 px-4 sm:px-6">
       <div className="w-full max-w-6xl space-y-8">
         {/* Header with Quick Actions */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#1E3358] pb-6">
         <div>
           <h1 className="text-2xl font-bold text-white tracking-tight">Financial Dashboard</h1>
-          <p className="text-sm text-white/50">
+          <p className="text-sm text-[#94A3B8]">
             Real-time Soroban on-chain pools and settlement activity.
           </p>
         </div>
@@ -72,19 +70,19 @@ export default function DashboardPage() {
               loadData();
             }}
             title="Refresh on-chain state"
-            className="p-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-white/70 hover:text-white transition-colors"
+            className="p-2 bg-[#0F2340] hover:bg-[#1E3358] border border-[#1E3358] rounded-lg text-[#94A3B8] hover:text-white transition-colors"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
           <Link
             href="/pools/new"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white text-black hover:bg-white/90 text-sm font-semibold rounded-lg shadow-xs transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white text-[#0B1A33] hover:bg-white/90 text-sm font-semibold rounded-lg shadow-xs transition-colors"
           >
             <Plus className="w-4 h-4" /> Create Pool
           </Link>
           <Link
             href="/payments/new"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/15 border border-white/10 text-white text-sm font-medium rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#0B1A33] hover:bg-[#1E3358] border border-[#1E3358] text-white text-sm font-medium rounded-lg transition-colors"
           >
             <CreditCard className="w-4 h-4" /> New Payment
           </Link>
@@ -93,8 +91,8 @@ export default function DashboardPage() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10 space-y-2">
-          <p className="text-xs text-white/50 font-medium">Connected Account</p>
+        <div className="p-5 rounded-xl bg-[#0F2340] border border-[#1E3358] space-y-2">
+          <p className="text-xs text-[#94A3B8] font-medium">Connected Account</p>
           {address ? (
             <div className="flex items-center justify-between">
               <span className="font-mono text-base font-semibold text-white">
@@ -104,7 +102,7 @@ export default function DashboardPage() {
                 href={getExplorerAccountUrl(address)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/40 hover:text-white"
+                className="text-[#94A3B8] hover:text-[#14B8A6] transition-colors"
               >
                 <ExternalLink className="w-4 h-4" />
               </a>
@@ -114,15 +112,15 @@ export default function DashboardPage() {
           )}
         </div>
 
-        <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10 space-y-2">
-          <p className="text-xs text-white/50 font-medium">Stellar Native Balance</p>
+        <div className="p-5 rounded-xl bg-[#0F2340] border border-[#1E3358] space-y-2">
+          <p className="text-xs text-[#94A3B8] font-medium">Stellar Native Balance</p>
           <p className="font-mono text-xl font-bold text-white">
             {address ? `${parseFloat(xlmBalance).toFixed(4)} XLM` : '—'}
           </p>
         </div>
 
-        <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10 space-y-2">
-          <p className="text-xs text-white/50 font-medium">Active On-Chain Pools</p>
+        <div className="p-5 rounded-xl bg-[#0F2340] border border-[#1E3358] space-y-2">
+          <p className="text-xs text-[#94A3B8] font-medium">Active On-Chain Pools</p>
           <p className="font-mono text-xl font-bold text-white">
             {pools.filter((p) => p.status === PoolStatus.Active).length}
           </p>
@@ -133,20 +131,20 @@ export default function DashboardPage() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-            <Split className="w-5 h-5 text-white/70" />
+            <Split className="w-5 h-5 text-[#94A3B8]" />
             Configured Pools
           </h2>
-          <Link href="/pools" className="text-xs text-white/50 hover:text-white transition-colors">
+          <Link href="/pools" className="text-xs text-[#94A3B8] hover:text-[#14B8A6] transition-colors">
             View all pools →
           </Link>
         </div>
 
         {pools.length === 0 ? (
-          <div className="p-8 text-center rounded-xl border border-dashed border-white/10 bg-white/[0.01] space-y-3">
-            <p className="text-sm text-white/60">No payment pools configured yet.</p>
+          <div className="p-8 text-center rounded-xl border border-dashed border-[#1E3358] bg-[#0F2340]/30 space-y-3">
+            <p className="text-sm text-[#94A3B8]">No payment pools configured yet.</p>
             <Link
               href="/pools/new"
-              className="inline-flex items-center gap-1.5 text-xs text-white underline underline-offset-4"
+              className="inline-flex items-center gap-1.5 text-xs text-[#14B8A6] underline underline-offset-4 hover:text-[#0D9488]"
             >
               Create your first pool
             </Link>
@@ -157,19 +155,19 @@ export default function DashboardPage() {
               <Link
                 key={pool.id}
                 href={`/pools/${pool.id}`}
-                className="group p-5 rounded-xl bg-[#111111] border border-white/10 hover:border-white/25 transition-all space-y-4"
+                className="group p-5 rounded-xl bg-[#0F2340] border border-[#1E3358] hover:border-[#14B8A6]/40 transition-all space-y-4"
               >
                 <div className="flex items-start justify-between">
                   <div>
                     <h3 className="font-semibold text-white group-hover:text-white transition-colors">
                       {pool.name || `Pool #${pool.id}`}
                     </h3>
-                    <p className="text-xs font-mono text-white/40">ID: {pool.id}</p>
+                    <p className="text-xs font-mono text-[#94A3B8]">ID: {pool.id}</p>
                   </div>
                   <span
                     className={`px-2 py-0.5 rounded text-[10px] uppercase font-mono font-medium ${
                       pool.status === PoolStatus.Active
-                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                        ? 'bg-[#14B8A6]/12 text-[#14B8A6] border border-[#14B8A6]/30'
                         : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
                     }`}
                   >
@@ -177,7 +175,7 @@ export default function DashboardPage() {
                   </span>
                 </div>
 
-                <div className="text-xs space-y-1 text-white/60 border-t border-white/5 pt-3">
+                <div className="text-xs space-y-1 text-[#94A3B8] border-t border-[#1E3358] pt-3">
                   <div className="flex justify-between">
                     <span>Owner:</span>
                     <span className="font-mono text-white/80">{formatAddress(pool.owner)}</span>
@@ -188,7 +186,7 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-white/50 pt-2 border-t border-white/5">
+                <div className="flex items-center justify-between text-xs text-[#94A3B8] pt-2 border-t border-[#1E3358]">
                   <span>View Details</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </div>
@@ -202,20 +200,20 @@ export default function DashboardPage() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-            <CreditCard className="w-5 h-5 text-white/70" />
+            <CreditCard className="w-5 h-5 text-[#94A3B8]" />
             Recent Payments
           </h2>
-          <Link href="/payments" className="text-xs text-white/50 hover:text-white transition-colors">
+          <Link href="/payments" className="text-xs text-[#94A3B8] hover:text-[#14B8A6] transition-colors">
             View all payments →
           </Link>
         </div>
 
         {payments.length === 0 ? (
-          <div className="p-8 text-center rounded-xl border border-dashed border-white/10 bg-white/[0.01]">
-            <p className="text-sm text-white/60">No payments created or settled yet.</p>
+          <div className="p-8 text-center rounded-xl border border-dashed border-[#1E3358] bg-[#0F2340]/30">
+            <p className="text-sm text-[#94A3B8]">No payments created or settled yet.</p>
           </div>
         ) : (
-          <div className="divide-y divide-white/5 rounded-xl border border-white/10 bg-[#111111] overflow-hidden">
+          <div className="divide-y divide-[#1E3358] rounded-xl border border-[#1E3358] bg-[#0F2340] overflow-hidden">
             {payments.map((pmt) => (
               <Link
                 key={pmt.id}
@@ -224,7 +222,7 @@ export default function DashboardPage() {
               >
                 <div className="space-y-1">
                   <p className="text-sm font-medium text-white">{pmt.title || `Payment #${pmt.id}`}</p>
-                  <div className="flex items-center gap-3 text-xs text-white/50">
+                  <div className="flex items-center gap-3 text-xs text-[#94A3B8]">
                     <span>Pool #{pmt.poolId}</span>
                     <span>•</span>
                     <span className="font-mono">{formatAddress(pmt.payer)}</span>
@@ -238,13 +236,13 @@ export default function DashboardPage() {
                     </p>
                     <span
                       className={`text-[10px] font-mono uppercase ${
-                        pmt.status === 2 ? 'text-emerald-400' : 'text-amber-400'
+                        pmt.status === 2 ? 'text-[#14B8A6]' : 'text-amber-400'
                       }`}
                     >
                       {pmt.status === 2 ? 'Settled' : 'Pending'}
                     </span>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-white/30" />
+                  <ArrowRight className="w-4 h-4 text-[#94A3B8]" />
                 </div>
               </Link>
             ))}

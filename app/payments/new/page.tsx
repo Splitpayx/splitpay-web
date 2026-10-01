@@ -31,7 +31,6 @@ function CreatePaymentContent() {
   const [clientError, setClientError] = useState<string | null>(null);
   const [loadingPool, setLoadingPool] = useState(false);
 
-  // Load available pools
   useEffect(() => {
     async function loadPools() {
       const tracked = getTrackedPools();
@@ -51,7 +50,6 @@ function CreatePaymentContent() {
     loadPools();
   }, []);
 
-  // When selectedPoolId changes, fetch pool details and members
   useEffect(() => {
     if (!selectedPoolId) return;
     async function loadSelected() {
@@ -68,7 +66,6 @@ function CreatePaymentContent() {
     loadSelected();
   }, [selectedPoolId]);
 
-  // Compute live split distribution preview
   const parsedAmount = parseUnits(amountInput, 7);
   const previewAllocations = calculateContractAllocations(parsedAmount, poolMembers);
 
@@ -107,7 +104,6 @@ function CreatePaymentContent() {
     const paymentId = Date.now().toString();
 
     try {
-      // Step 1: Create payment on-chain
       await executeTx(
         () =>
           splitPayClient.prepareCreatePayment(
@@ -120,13 +116,11 @@ function CreatePaymentContent() {
         (signedXdr) => splitPayClient.submitSignedTx(signedXdr)
       );
 
-      // Step 2: Settle payment atomically on-chain
       await executeTx(
         () => splitPayClient.prepareSettlePayment(address, paymentId),
         (signedXdr) => splitPayClient.submitSignedTx(signedXdr)
       );
 
-      // Save to client registry
       saveTrackedPayment({
         id: paymentId,
         poolId: selectedPool.id,
@@ -145,18 +139,18 @@ function CreatePaymentContent() {
       <div className="w-full max-w-2xl space-y-8">
         <Link
           href="/payments"
-          className="inline-flex items-center gap-2 text-xs font-medium text-zinc-400 hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-medium text-[#94A3B8] hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Payments
         </Link>
 
-        <div className="space-y-2 border-b border-white/10 pb-5">
+        <div className="space-y-2 border-b border-[#1E3358] pb-5">
           <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-blue-500/20 bg-blue-500/10 text-blue-400 text-xs font-medium">
             <CreditCard className="w-3.5 h-3.5" />
             Atomic Settlement Engine
           </div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">Create & Settle Payment</h1>
-          <p className="text-sm text-zinc-400">
+          <h1 className="text-3xl font-bold text-white tracking-tight">Create &amp; Settle Payment</h1>
+          <p className="text-sm text-[#94A3B8]">
             Deposit funds to a pool for instant, atomic distribution via Soroban smart contracts.
           </p>
         </div>
@@ -169,19 +163,19 @@ function CreatePaymentContent() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="bg-[#111319] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl space-y-5">
+          <div className="bg-[#0F2340] p-6 sm:p-7 rounded-2xl border border-[#1E3358] shadow-xl space-y-5">
             <h2 className="font-semibold text-white text-base">Payment Details</h2>
 
           <div className="space-y-1.5">
-            <label className="text-xs text-white/60">Target Pool</label>
+            <label className="text-xs text-[#94A3B8]">Target Pool</label>
             <select
               value={selectedPoolId}
               onChange={(e) => setSelectedPoolId(e.target.value)}
               required
-              className="w-full px-3 py-2 text-sm bg-black/40 border border-white/10 rounded-lg text-white focus:outline-hidden"
+              className="w-full"
             >
               {availablePools.map((p) => (
-                <option key={p.id} value={p.id} className="bg-[#111111] text-white">
+                <option key={p.id} value={p.id}>
                   {p.name || `Pool #${p.id}`} (ID: {p.id})
                 </option>
               ))}
@@ -189,18 +183,18 @@ function CreatePaymentContent() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs text-white/60">Payment Title / Reference (Metadata)</label>
+            <label className="text-xs text-[#94A3B8]">Payment Title / Reference (Metadata)</label>
             <input
               type="text"
               placeholder="e.g. Q1 Milestone Payout"
               value={paymentTitle}
               onChange={(e) => setPaymentTitle(e.target.value)}
-              className="w-full px-3 py-2 text-sm bg-black/40 border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-hidden"
+              className="w-full"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs text-white/60">Amount</label>
+            <label className="text-xs text-[#94A3B8]">Amount</label>
             <div className="relative">
               <input
                 type="number"
@@ -210,12 +204,12 @@ function CreatePaymentContent() {
                 value={amountInput}
                 onChange={(e) => setAmountInput(e.target.value)}
                 required
-                className="w-full px-3 py-2 text-sm font-mono bg-black/40 border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-hidden pr-16"
+                className="w-full font-mono pr-16"
               />
-              <span className="absolute right-3 top-2.5 text-xs font-mono text-white/40">UNITS</span>
+              <span className="absolute right-3 top-2.5 text-xs font-mono text-[#64748B]">UNITS</span>
             </div>
             {selectedPool && (
-              <p className="text-[11px] font-mono text-white/40">
+              <p className="text-[11px] font-mono text-[#64748B]">
                 Asset SAC: {formatAddress(selectedPool.asset, 8, 8)}
               </p>
             )}
@@ -223,29 +217,29 @@ function CreatePaymentContent() {
         </div>
 
         {/* Contract Distribution Preview */}
-        <div className="bg-[#111319] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl space-y-5">
+        <div className="bg-[#0F2340] p-6 sm:p-7 rounded-2xl border border-[#1E3358] shadow-xl space-y-5">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="font-semibold text-white text-base">Deterministic Split Preview</h2>
-              <p className="text-xs text-zinc-400">Calculated directly according to contract rules.</p>
+              <p className="text-xs text-[#94A3B8]">Calculated directly according to contract rules.</p>
             </div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-xs text-emerald-400 font-mono">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#14B8A6]/30 bg-[#14B8A6]/10 text-xs text-[#14B8A6] font-mono">
               <ShieldCheck className="w-3.5 h-3.5" />
               100% Invariant
             </div>
           </div>
 
           {poolMembers.length === 0 ? (
-            <p className="text-xs text-zinc-500 py-3">No members configured for this pool.</p>
+            <p className="text-xs text-[#64748B] py-3">No members configured for this pool.</p>
           ) : (
-            <div className="divide-y divide-white/5 rounded-xl border border-white/10 bg-[#090A0F] overflow-hidden">
+            <div className="divide-y divide-[#1E3358] rounded-xl border border-[#1E3358] bg-[#0B1A33] overflow-hidden">
               {previewAllocations.map((alloc, idx) => (
                 <div key={idx} className="flex items-center justify-between p-3.5 text-xs">
                   <div className="space-y-0.5">
-                    <span className="font-mono text-zinc-200">{formatAddress(alloc.address, 8, 8)}</span>
-                    <span className="block text-[11px] text-zinc-500">{formatBps(alloc.shareBps)} share</span>
+                    <span className="font-mono text-white/90">{formatAddress(alloc.address, 8, 8)}</span>
+                    <span className="block text-[11px] text-[#94A3B8]">{formatBps(alloc.shareBps)} share</span>
                   </div>
-                  <div className="text-right font-mono font-semibold text-emerald-400">
+                  <div className="text-right font-mono font-semibold text-[#14B8A6]">
                     {formatUnits(alloc.amount)} units
                   </div>
                 </div>
@@ -257,7 +251,7 @@ function CreatePaymentContent() {
         <button
           type="submit"
           disabled={!address || !selectedPool || txState.step !== 'idle'}
-          className="w-full py-3.5 px-6 bg-white text-black font-semibold text-sm rounded-xl hover:bg-zinc-200 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-[0.99]"
+          className="w-full py-3.5 px-6 bg-white text-[#0B1A33] font-semibold text-sm rounded-xl hover:bg-white/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-[0.99]"
         >
           {!address ? 'Connect Wallet to Pay' : 'Sign & Settle Payment on Soroban'}
         </button>
@@ -271,7 +265,7 @@ function CreatePaymentContent() {
 
 export default function CreatePaymentPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-white/50">Loading...</div>}>
+    <Suspense fallback={<div className="p-8 text-center text-[#94A3B8]">Loading...</div>}>
       <CreatePaymentContent />
     </Suspense>
   );
