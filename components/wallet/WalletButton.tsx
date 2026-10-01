@@ -56,34 +56,34 @@ export function WalletButton() {
         <div className="hidden sm:flex flex-col items-end text-xs">
           <div className="flex items-center gap-1.5 text-white/90 font-mono font-medium">
             <span>{parseFloat(xlmBalance).toFixed(2)} XLM</span>
-            <span className="px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 uppercase border border-emerald-500/20">
+            <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#14B8A6]/15 text-[#14B8A6] uppercase border border-[#14B8A6]/30">
               {network}
             </span>
           </div>
-          <span className="text-white/40 font-mono text-[11px]">{formatAddress(address)}</span>
+          <span className="text-[#94A3B8] font-mono text-[11px]">{formatAddress(address)}</span>
         </div>
 
-        <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-1">
+        <div className="flex items-center gap-1 bg-[#0F2340] border border-[#1E3358] rounded-lg p-1">
           <button
             onClick={handleCopy}
             title="Copy address"
-            className="p-1.5 hover:bg-white/10 rounded text-white/70 hover:text-white transition-colors"
+            className="p-1.5 hover:bg-white/10 rounded text-[#94A3B8] hover:text-white transition-colors"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? <Check className="w-3.5 h-3.5 text-[#14B8A6]" /> : <Copy className="w-3.5 h-3.5" />}
           </button>
           <a
             href={getExplorerAccountUrl(address)}
             target="_blank"
             rel="noopener noreferrer"
             title="View on Explorer"
-            className="p-1.5 hover:bg-white/10 rounded text-white/70 hover:text-white transition-colors"
+            className="p-1.5 hover:bg-white/10 rounded text-[#94A3B8] hover:text-white transition-colors"
           >
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
           <button
             onClick={disconnect}
             title="Disconnect"
-            className="p-1.5 hover:bg-rose-500/20 rounded text-white/70 hover:text-rose-400 transition-colors"
+            className="p-1.5 hover:bg-rose-500/20 rounded text-[#94A3B8] hover:text-rose-400 transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
           </button>
@@ -97,7 +97,7 @@ export function WalletButton() {
       <button
         onClick={() => setShowModal(true)}
         disabled={isConnecting}
-        className="inline-flex items-center gap-2 px-4 py-2 bg-white text-black hover:bg-white/90 text-sm font-medium rounded-lg shadow-xs transition-all active:scale-[0.98]"
+        className="inline-flex items-center gap-2 px-4 py-2 bg-white text-[#0B1A33] hover:bg-white/90 text-sm font-medium rounded-lg shadow-xs transition-all active:scale-[0.98]"
       >
         <Wallet className="w-4 h-4" />
         {isConnecting ? 'Connecting...' : 'Connect Wallet'}
@@ -105,12 +105,12 @@ export function WalletButton() {
 
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4">
-          <div className="bg-[#111111] border border-white/10 rounded-xl p-6 max-w-sm w-full space-y-4 shadow-2xl text-white">
-            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+          <div className="bg-[#0F2340] border border-[#1E3358] rounded-xl p-6 max-w-sm w-full space-y-4 shadow-2xl text-white">
+            <div className="flex items-center justify-between border-b border-[#1E3358] pb-3">
               <h3 className="font-semibold text-base text-white">Connect Stellar Wallet</h3>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-white/40 hover:text-white text-sm"
+                className="text-[#94A3B8] hover:text-white text-sm"
               >
                 ✕
               </button>
@@ -122,7 +122,7 @@ export function WalletButton() {
                   connect();
                   setShowModal(false);
                 }}
-                className="w-full flex items-center justify-between p-3 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 transition-colors text-left"
+                className="w-full flex items-center justify-between p-3 rounded-lg border border-[#1E3358] bg-white/5 hover:bg-white/10 transition-colors text-left"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">
@@ -130,26 +130,26 @@ export function WalletButton() {
                   </div>
                   <div>
                     <p className="font-medium text-sm text-white">Freighter Wallet</p>
-                    <p className="text-xs text-white/50">
+                    <p className="text-xs text-[#94A3B8]">
                       {hasFreighter ? 'Detected browser extension' : 'Browser extension'}
                     </p>
                   </div>
                 </div>
               </button>
 
-              <div className="pt-2 border-t border-white/5">
-                <p className="text-xs text-white/50 mb-2">Testnet Developer Mode</p>
+              <div className="pt-2 border-t border-[#1E3358]">
+                <p className="text-xs text-[#94A3B8] mb-2">Testnet Developer Mode</p>
                 <button
                   onClick={() => {
                     connectDevWallet();
                     setShowModal(false);
                   }}
-                  className="w-full flex items-center gap-3 p-3 rounded-lg border border-dashed border-white/20 bg-white/[0.02] hover:bg-white/[0.06] transition-colors text-left"
+                  className="w-full flex items-center gap-3 p-3 rounded-lg border border-dashed border-[#1E3358] bg-white/[0.02] hover:bg-white/[0.06] transition-colors text-left"
                 >
                   <Key className="w-5 h-5 text-amber-400" />
                   <div>
                     <p className="font-medium text-sm text-amber-300">Generate Dev Keypair</p>
-                    <p className="text-xs text-white/40">Instant Testnet identity for testing</p>
+                    <p className="text-xs text-[#94A3B8]">Instant Testnet identity for testing</p>
                   </div>
                 </button>
               </div>
@@ -160,7 +160,7 @@ export function WalletButton() {
                   placeholder="Or paste S... secret key"
                   value={secretKeyInput}
                   onChange={(e) => setSecretKeyInput(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-black/40 border border-white/10 rounded-lg text-white font-mono placeholder:text-white/30 focus:outline-hidden focus:border-white/30"
+                  className="w-full px-3 py-2 text-xs border border-[#1E3358] rounded-lg text-white font-mono placeholder:text-[#64748B] focus:outline-hidden focus:border-[#14B8A6]"
                 />
                 {secretKeyInput && (
                   <button
