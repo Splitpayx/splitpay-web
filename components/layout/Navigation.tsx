@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { WalletButton } from '@/components/wallet/WalletButton';
+import { GithubIcon } from '@/components/shared/GithubIcon';
 import { STELLAR_CONFIG } from '@/lib/stellar/config';
 import { Split, Layers, CreditCard, WalletCards, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';

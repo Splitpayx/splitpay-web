@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useWallet } from '@/hooks/useWallet';
 import { WalletButton } from '@/components/wallet/WalletButton';
+import { GithubIcon } from '@/components/shared/GithubIcon';
 import { Split, ShieldCheck, ArrowRight, Layers, Coins, CheckCircle2 } from 'lucide-react';
 
 export default function LandingPage() {

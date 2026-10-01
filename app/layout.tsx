@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { WalletProvider } from '@/lib/wallet/WalletContext';
 import { Navigation } from '@/components/layout/Navigation';
+import { GithubIcon } from '@/components/shared/GithubIcon';
 
 export const metadata: Metadata = {
   title: 'SplitPay | Stellar Collaborative Payment Distribution',
