@@ -1,4 +1,5 @@
 import {
+  Account,
   Contract,
   TransactionBuilder,
   nativeToScVal,
@@ -12,6 +13,12 @@ import {
 import { STELLAR_CONFIG } from '../stellar/config';
 import { getRpcServer, loadAccount, pollTransactionStatus } from '../stellar/rpc';
 import { Pool, PoolStatus, Member, Payment, PaymentStatus, Distribution } from '@/types';
+
+// Valid dummy Stellar account used for Soroban read-only simulation calls
+const DUMMY_SIMULATION_ACCOUNT = new Account(
+  'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+  '0'
+);
 
 export class SplitPayContractClient {
   private contractId: string;
@@ -52,16 +59,8 @@ export class SplitPayContractClient {
     }
 
     const contract = new Contract(contractId);
-    // Use contract address itself as dummy source account for read-only simulations
-    const sourceAccount = await this.server.getAccount(contractId).catch(() => {
-      // Fallback: create mock account for simulation
-      return new (require('@stellar/stellar-sdk').Account)(
-        'GA6HCMBLTZS5VYYBCATRBRZ3ACJROFEOE5QKZAS2SUAUQIXZQ2O7O5PA',
-        '0'
-      );
-    });
 
-    const tx = new TransactionBuilder(sourceAccount, {
+    const tx = new TransactionBuilder(DUMMY_SIMULATION_ACCOUNT, {
       fee: BASE_FEE,
       networkPassphrase: STELLAR_CONFIG.networkPassphrase,
     })
