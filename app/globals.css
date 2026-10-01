@@ -6,19 +6,23 @@
   --font-geist-mono: "Geist Mono", monospace;
 
   /* Surfaces */
-  --bg-app: #08090C;
-  --bg-card: #111319;
-  --bg-input: #171922;
+  --bg-app: #0B1A33;
+  --bg-card: #0F2340;
+  --bg-input: #0F2340;
 
   /* Borders */
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-default: rgba(255, 255, 255, 0.14);
-  --border-focus: rgba(255, 255, 255, 0.35);
+  --border-subtle: #1E3358;
+  --border-default: #1E3358;
+  --border-focus: rgba(20, 184, 166, 0.5);
 
   /* Text */
-  --text-primary: #F8FAFC;
+  --text-primary: #FFFFFF;
   --text-secondary: #94A3B8;
   --text-muted: #64748B;
+
+  /* Accent */
+  --accent: #14B8A6;
+  --accent-hover: #0D9488;
 }
 
 *, *::before, *::after {
@@ -26,8 +30,8 @@
 }
 
 html, body {
-  background-color: #08090C !important;
-  color: #F8FAFC !important;
+  background-color: #0B1A33 !important;
+  color: #FFFFFF !important;
   font-family: var(--font-outfit);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -46,14 +50,14 @@ html, body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: #1E3358;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.24);
+  background: #2a4a77;
 }
 
-/* Comprehensive Input & Select Styling - Prevents Dark-on-Dark or Browser Defaults */
+/* Comprehensive Input & Select Styling */
 input[type="text"],
 input[type="number"],
 input[type="password"],
@@ -61,8 +65,8 @@ input[type="email"],
 select,
 textarea {
   color: #FFFFFF !important;
-  background-color: #171922 !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background-color: #0F2340 !important;
+  border: 1px solid #1E3358 !important;
   border-radius: 0.5rem;
   padding: 0.625rem 0.875rem;
   font-size: 0.875rem;
@@ -77,8 +81,8 @@ input[type="password"]:focus,
 input[type="email"]:focus,
 select:focus,
 textarea:focus {
-  border-color: rgba(255, 255, 255, 0.4) !important;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2) !important;
+  border-color: #14B8A6 !important;
+  box-shadow: 0 0 0 1px rgba(20, 184, 166, 0.25) !important;
 }
 
 input::placeholder,
@@ -88,7 +92,7 @@ textarea::placeholder {
 }
 
 select option {
-  background-color: #111319 !important;
+  background-color: #0F2340 !important;
   color: #FFFFFF !important;
 }
 

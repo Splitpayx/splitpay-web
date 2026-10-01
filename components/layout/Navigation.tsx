@@ -20,7 +20,7 @@ export function Navigation() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-[#1E3358] bg-[#0F2340]/90 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2.5 font-semibold text-lg text-white">
@@ -46,8 +46,8 @@ export function Navigation() {
                   className={cn(
                     'flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors',
                     isActive
-                      ? 'bg-white/10 text-white'
-                      : 'text-white/60 hover:text-white hover:bg-white/5'
+                      ? 'bg-[#14B8A6]/15 text-[#14B8A6]'
+                      : 'text-[#94A3B8] hover:text-white hover:bg-white/5'
                   )}
                 >
                   <Icon className="w-4 h-4" />
