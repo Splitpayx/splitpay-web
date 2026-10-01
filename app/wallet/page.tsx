@@ -51,6 +51,14 @@ export default function WalletPage() {
           </p>
         </div>
 
+        <a
+            href="http://splitpaydocs.samkiel.dev/docs/getting-started/freighter-wallet"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 bg-[#0F2340] hover:bg-[#1E3358] border border-[#1E3358] text-[#94A3B8] hover:text-[#14B8A6] text-xs font-medium rounded-lg transition-colors"
+          >
+            <span>Wallet Guide</span>
+          </a>
         {address && (
           <div className="flex items-center gap-2">
             <button

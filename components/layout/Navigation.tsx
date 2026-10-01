@@ -60,6 +60,15 @@ export function Navigation() {
         </div>
 
         <div className="flex items-center gap-3">
+          <a
+            href="http://splitpaydocs.samkiel.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[#94A3B8] hover:text-white hover:bg-white/5 transition-colors border border-transparent hover:border-[#1E3358]"
+            title="SplitPay Documentation"
+          >
+            <span>Docs</span>
+          </a>
           <WalletButton />
         </div>
       </div>
