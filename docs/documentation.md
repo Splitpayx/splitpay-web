@@ -1,5 +1,17 @@
 # SplitPay
 
+**GitHub Organisation:** [github.com/Splitpayx](https://github.com/Splitpayx)
+
+| Repository | Description |
+|---|---|
+| [splitpay-web](https://github.com/Splitpayx/splitpay-web) <- *this repo* | Primary web application (Next.js) |
+| [splitpay-contract](https://github.com/Splitpayx/splitpay-contract) | Soroban smart contract |
+| [splitpay-mobile](https://github.com/Splitpayx/splitpay-mobile) | React Native mobile app |
+| [splitpay-sdk](https://github.com/Splitpayx/splitpay-sdk) | Shared client SDK |
+
+---
+
+
 ## 1. Overview
 
 SplitPay is a collaborative payment and fund distribution platform built on Stellar.

@@ -61,19 +61,63 @@ export async function loadAccount(address: string): Promise<Account> {
  */
 export async function pollTransactionStatus(
   txHash: string,
-  maxAttempts = 15,
+  maxAttempts = 20,
   intervalMs = 2000
 ): Promise<rpc.Api.GetTransactionResponse> {
   const server = getRpcServer();
 
   for (let i = 0; i < maxAttempts; i++) {
-    const res = await server.getTransaction(txHash);
+    try {
+      const res = await server.getTransaction(txHash);
 
-    if (res.status === rpc.Api.GetTransactionStatus.SUCCESS) {
-      return res;
-    }
-    if (res.status === rpc.Api.GetTransactionStatus.FAILED) {
-      throw new Error(`Transaction ${txHash} failed on-chain.`);
+      if (res.status === rpc.Api.GetTransactionStatus.SUCCESS) {
+        return res;
+      }
+      if (res.status === rpc.Api.GetTransactionStatus.FAILED) {
+        throw new Error(`Transaction ${txHash} failed on-chain.`);
+      }
+    } catch (err: any) {
+      if (err?.message?.includes('failed on-chain')) {
+        throw err;
+      }
+      // If server.getTransaction throws due to SDK XDR parser mismatch (Protocol 21/22), fallback to raw RPC
+      try {
+        const rawRes = await fetch(STELLAR_CONFIG.rpcUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: Date.now(),
+            method: 'getTransaction',
+            params: { hash: txHash },
+          }),
+        });
+        const data = await rawRes.json();
+        const txStatus = data?.result?.status;
+        if (txStatus === 'SUCCESS') {
+          return {
+            status: rpc.Api.GetTransactionStatus.SUCCESS,
+            latestLedger: data.result.latestLedger,
+            latestLedgerCloseTime: data.result.latestLedgerCloseTime,
+            oldestLedger: data.result.oldestLedger,
+            oldestLedgerCloseTime: data.result.oldestLedgerCloseTime,
+            applicationOrder: data.result.applicationOrder,
+            feeBump: false,
+            envelopeXdr: data.result.envelopeXdr,
+            resultXdr: data.result.resultXdr,
+            resultMetaXdr: data.result.resultMetaXdr,
+            ledger: data.result.ledger,
+            createdAt: data.result.createdAt,
+          } as unknown as rpc.Api.GetTransactionResponse;
+        }
+        if (txStatus === 'FAILED') {
+          throw new Error(`Transaction ${txHash} failed on-chain.`);
+        }
+      } catch (innerErr: any) {
+        if (innerErr?.message?.includes('failed on-chain')) {
+          throw innerErr;
+        }
+      }
     }
 
     // Wait before next check

@@ -2,12 +2,22 @@
 
 > Automated, trustless collaborative payment distribution powered by Stellar and Soroban smart contracts.
 
+[![GitHub](https://img.shields.io/badge/GitHub-Splitpayx-24292e?style=flat&logo=github)](https://github.com/Splitpayx)
 [![Next.js](https://img.shields.io/badge/Next.js-16.3.5-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.0.0-blue?style=flat&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 [![Stellar](https://img.shields.io/badge/Stellar-Testnet-black?style=flat&logo=stellar)](https://stellar.org/)
 [![Soroban](https://img.shields.io/badge/Soroban-Smart_Contract-purple?style=flat)](https://soroban.stellar.org/)
 [![Vitest](https://img.shields.io/badge/Vitest-Passing-brightgreen?style=flat&logo=vitest)](https://vitest.dev/)
+
+**GitHub Organisation:** [github.com/Splitpayx](https://github.com/Splitpayx)
+
+| Repository | Description |
+|---|---|
+| [splitpay-web](https://github.com/Splitpayx/splitpay-web) ← *this repo* | Primary web application (Next.js) |
+| [splitpay-contract](https://github.com/Splitpayx/splitpay-contract) | Soroban smart contract — on-chain pool & distribution logic |
+| [splitpay-mobile](https://github.com/Splitpayx/splitpay-mobile) | React Native mobile application |
+| [splitpay-sdk](https://github.com/Splitpayx/splitpay-sdk) | Shared client SDK |
 
 ---
 

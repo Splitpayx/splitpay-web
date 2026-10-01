@@ -60,6 +60,11 @@ export default function CreatePoolPage() {
       return;
     }
 
+    if (!splitPayClient.getContractId()) {
+      setClientError('SplitPay contract ID is not configured. Please verify your settings or .env configuration.');
+      return;
+    }
+
     if (!isValidStellarAddress(assetAddress)) {
       setClientError('Please enter a valid Stellar SAC asset contract address (e.g. C...).');
       return;

@@ -23,24 +23,37 @@ export class SplitPayContractClient {
   }
 
   getContractId(): string {
+    if (!this.contractId) {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem('splitpay_contract_id');
+        if (stored) this.contractId = stored;
+      }
+      if (!this.contractId) {
+        this.contractId = STELLAR_CONFIG.contractId;
+      }
+    }
     return this.contractId;
   }
 
   setContractId(id: string) {
     this.contractId = id;
+    if (typeof window !== 'undefined' && id) {
+      localStorage.setItem('splitpay_contract_id', id);
+    }
   }
 
   /**
    * Helper to build and simulate a read-only contract call.
    */
   async simulateCall(method: string, args: xdr.ScVal[] = []): Promise<xdr.ScVal | null> {
-    if (!this.contractId) {
+    const contractId = this.getContractId();
+    if (!contractId) {
       throw new Error('SplitPay contract ID is not configured.');
     }
 
-    const contract = new Contract(this.contractId);
+    const contract = new Contract(contractId);
     // Use contract address itself as dummy source account for read-only simulations
-    const sourceAccount = await this.server.getAccount(this.contractId).catch(() => {
+    const sourceAccount = await this.server.getAccount(contractId).catch(() => {
       // Fallback: create mock account for simulation
       return new (require('@stellar/stellar-sdk').Account)(
         'GA6HCMBLTZS5VYYBCATRBRZ3ACJROFEOE5QKZAS2SUAUQIXZQ2O7O5PA',
@@ -71,12 +84,13 @@ export class SplitPayContractClient {
     method: string,
     args: xdr.ScVal[]
   ): Promise<string> {
-    if (!this.contractId) {
+    const contractId = this.getContractId();
+    if (!contractId) {
       throw new Error('SplitPay contract ID is not configured.');
     }
 
     const account = await loadAccount(signerAddress);
-    const contract = new Contract(this.contractId);
+    const contract = new Contract(contractId);
 
     const tx = new TransactionBuilder(account, {
       fee: (parseInt(BASE_FEE) * 10).toString(),

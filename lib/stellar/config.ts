@@ -5,7 +5,10 @@ export const STELLAR_CONFIG: NetworkConfig = {
   rpcUrl: process.env.NEXT_PUBLIC_STELLAR_RPC_URL || 'https://soroban-testnet.stellar.org',
   networkPassphrase:
     process.env.NEXT_PUBLIC_STELLAR_NETWORK_PASSPHRASE || 'Test SDF Network ; September 2015',
-  contractId: process.env.NEXT_PUBLIC_SPLITPAY_CONTRACT_ID || '',
+  contractId:
+    (typeof window !== 'undefined' && localStorage.getItem('splitpay_contract_id')) ||
+    process.env.NEXT_PUBLIC_SPLITPAY_CONTRACT_ID ||
+    'CCOXHXGFTYVRRCJ7U32QZJCWXDTNQLRMDS3IAGW5MGFEWOUEXNYYKLHF',
   explorerUrl: process.env.NEXT_PUBLIC_EXPLORER_URL || 'https://stellar.expert/explorer/testnet',
   // Default native XLM Stellar Asset Contract on Testnet (or configured asset)
   defaultAssetContract:

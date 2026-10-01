@@ -11,11 +11,24 @@ export default function SettingsPage() {
   const [network, setNetwork] = useState(STELLAR_CONFIG.network);
   const [saved, setSaved] = useState(false);
 
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedContractId = localStorage.getItem('splitpay_contract_id');
+      const storedRpc = localStorage.getItem('splitpay_rpc_url');
+      if (storedContractId) setContractId(storedContractId);
+      if (storedRpc) setRpcUrl(storedRpc);
+    }
+  }, []);
+
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     splitPayClient.setContractId(contractId);
     STELLAR_CONFIG.contractId = contractId;
     STELLAR_CONFIG.rpcUrl = rpcUrl;
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('splitpay_contract_id', contractId);
+      localStorage.setItem('splitpay_rpc_url', rpcUrl);
+    }
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
   };
@@ -31,7 +44,7 @@ export default function SettingsPage() {
         {saved && (
           <div className="p-4 rounded-xl bg-[#14B8A6]/10 border border-[#14B8A6]/30 text-[#14B8A6] text-xs flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
-            <span>Configuration saved for current session.</span>
+            <span>Configuration saved successfully and persisted.</span>
           </div>
         )}
 
