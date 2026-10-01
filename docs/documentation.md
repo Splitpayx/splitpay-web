@@ -705,3 +705,19 @@ The web and mobile applications are clients.
 The backend is an optional service layer.
 
 The SDK is the shared interface between applications and the protocol.
+
+
+---
+
+# Brand Color Palette
+
+| Token             | Hex       | Usage                       |
+|-------------------|-----------|-----------------------------|
+| Ink / Background  | `#0B1A33` | Page background             |
+| Surface           | `#0F2340` | Cards, nav, modals          |
+| Border            | `#1E3358` | Dividers, input borders     |
+| Text Primary      | `#FFFFFF` | Headings, body text         |
+| Text Muted        | `#94A3B8` | Labels, secondary text      |
+| Accent Teal       | `#14B8A6` | CTAs, highlights, icons     |
+| Accent Teal Hover | `#0D9488` | Hover / active states       |
+| White             | `#FFFFFF` | Pure white where needed     |
