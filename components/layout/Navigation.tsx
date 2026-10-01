@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { WalletButton } from '@/components/wallet/WalletButton';
 import { STELLAR_CONFIG } from '@/lib/stellar/config';
@@ -23,9 +24,14 @@ export function Navigation() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2.5 font-semibold text-lg text-white">
-            <div className="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-bold">
-              <Split className="w-5 h-5 text-black" />
-            </div>
+            <Image
+              src="/logo.jpg"
+              alt="SplitPay Logo"
+              width={32}
+              height={32}
+              className="rounded-lg object-cover"
+              priority
+            />
             <span>SplitPay</span>
           </Link>
 

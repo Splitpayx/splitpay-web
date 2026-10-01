@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: 'SplitPay | Stellar Collaborative Payment Distribution',
   description:
     'Automated, trustless collaborative payments and split distribution on Stellar and Soroban smart contracts.',
+  icons: {
+    icon: '/logo.jpg',
+    shortcut: '/logo.jpg',
+    apple: '/logo.jpg',
+  },
 };
 
 export default function RootLayout({
